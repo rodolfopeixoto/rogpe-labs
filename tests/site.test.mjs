@@ -14,9 +14,12 @@ test("keeps one clear page title and one H1", async () => {
 
 test("has a deterministic health endpoint and security headers", async () => {
   const nginx = await readFile(resolve(ROOT, "nginx.conf"), "utf8");
+  const securityHeaders = await readFile(resolve(ROOT, "security-headers.conf"), "utf8");
   assert.match(nginx, /location = \/healthz/);
   assert.match(nginx, /return 200 "ok\\n"/);
-  assert.match(nginx, /Content-Security-Policy/);
+  assert.match(nginx, /security-headers\.conf/);
+  assert.match(securityHeaders, /Content-Security-Policy/);
+  assert.match(securityHeaders, /X-Content-Type-Options/);
 });
 
 test("does not capture personal data in browser analytics", async () => {
