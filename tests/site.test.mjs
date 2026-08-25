@@ -22,5 +22,5 @@ test("has a deterministic health endpoint and security headers", async () => {
 test("does not capture personal data in browser analytics", async () => {
   const siteScript = await readFile(resolve(ROOT, "public/site.js"), "utf8");
   assert.match(siteScript, /window\.umami\?\.track/);
-  assert.doesNotMatch(siteScript, /email|phone|document|address/i);
+  assert.doesNotMatch(siteScript, /email|phone|address|formdata/i);
 });
